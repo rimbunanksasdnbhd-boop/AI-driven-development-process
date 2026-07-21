@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "btp-ma-ai-development-framework"
+version = "0.1.0"
+description = "Enterprise intake and governance framework for BTP@MA AI-driven development"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "BTP@MA Framework Contributors" }]
+dependencies = [
+  "PyYAML>=6.0,<7",
+  "jsonschema>=4.22,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2,<9",
+  "ruff>=0.6,<1",
+]
+
+[project.scripts]
+btp-ma = "btp_ma_framework.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/btp_ma_framework"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

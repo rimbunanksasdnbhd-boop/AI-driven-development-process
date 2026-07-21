@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="BTP@MA AI-Driven Development Framework — a controlled, traceable framework for AI-assisted requirement analysis, solution design, test creation and coding." />
+  <title>BTP@MA AI-Driven Development Framework</title>
+  <style>
+    :root {
+      --ink: #112238;
+      --muted: #607086;
+      --paper: #f3f6f9;
+      --surface: #ffffff;
+      --navy: #061f3d;
+      --blue: #0057b8;
+      --blue-2: #007bc0;
+      --blue-3: #dcecf8;
+      --line: #cbd7e3;
+      --soft-line: #e4ebf1;
+      --success: #1d6f53;
+      --warning: #a25d00;
+      --shadow: 0 18px 50px rgba(14, 42, 72, 0.10);
+      --radius: 4px;
+      --serif: Georgia, "Times New Roman", Times, serif;
+      --sans: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--navy); }
+    button { font: inherit; }
+
+    .top-rule {
+      height: 7px;
+      background: linear-gradient(90deg, var(--navy) 0 18%, var(--blue) 18% 73%, var(--blue-2) 73% 100%);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 15px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 13px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      color: var(--blue);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .brand-desc {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .nav a { color: var(--ink); text-decoration: none; }
+    .nav a:hover { color: var(--blue); }
+
+    .page {
+      max-width: 1260px;
+      margin: 0 auto;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, .7fr);
+      gap: 56px;
+      padding: 82px 64px 64px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.91)),
+        repeating-linear-gradient(0deg, transparent 0 27px, rgba(0,87,184,.04) 27px 28px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      top: -190px;
+      width: 430px;
+      height: 430px;
+      border: 58px solid rgba(0, 87, 184, .06);
+      border-radius: 50%;
+    }
+
+    .kicker {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding-top: 9px;
+      border-top: 5px solid var(--blue);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 800px;
+      margin-bottom: 24px;
+      font-family: var(--serif);
+      font-size: clamp(48px, 6vw, 78px);
+      line-height: .98;
+      font-weight: 700;
+      letter-spacing: -.045em;
+      color: var(--navy);
+    }
+
+    .standfirst {
+      max-width: 730px;
+      margin-bottom: 0;
+      color: #33465d;
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.45;
+    }
+
+    .hero-aside {
+      position: relative;
+      z-index: 1;
+      align-self: end;
+      padding: 28px 0 0 28px;
+      border-left: 1px solid var(--line);
+    }
+
+    .edition-label {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 7px 10px 6px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-aside h2 {
+      margin-bottom: 14px;
+      font-family: var(--serif);
+      font-size: 31px;
+      line-height: 1.07;
+      letter-spacing: -.025em;
+      color: var(--navy);
+    }
+
+    .hero-aside p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .byline {
+      margin-top: 26px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--line);
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .metric {
+      min-height: 130px;
+      padding: 24px 28px;
+      border-right: 1px solid rgba(255,255,255,.22);
+    }
+
+    .metric:last-child { border-right: 0; }
+    .metric strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 700;
+    }
+    .metric span {
+      display: block;
+      margin-top: 11px;
+      color: #bdd6ec;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .content {
+      padding: 0 64px 84px;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 46px;
+      padding: 70px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child { border-bottom: 0; }
+
+    .section-label {
+      position: sticky;
+      top: 92px;
+      align-self: start;
+    }
+
+    .section-no {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--blue);
+      font-family: var(--serif);
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .section-label h2 {
+      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 24px;
+      line-height: 1.1;
+      color: var(--navy);
+    }
+
+    .section-label p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-body > :last-child { margin-bottom: 0; }
+
+    .lead-rule {
+      margin: 0 0 34px;
+      padding: 25px 30px 27px;
+      border-left: 7px solid var(--blue);
+      background: var(--blue-3);
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -.015em;
+    }
+
+    .gate-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .gate-card {
+      position: relative;
+      min-height: 340px;
+      padding: 26px 24px;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--blue);
+      background: #fff;
+    }
+
+    .gate-card:nth-child(2) { border-top-color: var(--blue-2); }
+    .gate-card:nth-child(3) { border-top-color: var(--navy); }
+
+    .gate-tag {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .gate-card h3 {
+      margin-bottom: 13px;
+      font-family: var(--serif);
+      font-size: 27px;
+      line-height: 1.08;
+      color: var(--navy);
+    }
+
+    .gate-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .check-list {
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      margin: 10px 0;
+      padding-left: 22px;
+      color: #2f435a;
+      font-size: 13px;
+    }
+
+    .check-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .47em;
+      width: 8px;
+      height: 8px;
+      border: 2px solid var(--blue);
+      background: #fff;
+    }
+
+    .waiver {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--soft-line);
+      color: var(--warning);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .architecture {
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+
+    .flow-top {
+      display: grid;
+      grid-template-columns: 1fr 42px 1.2fr 42px 1fr;
+      align-items: center;
+      gap: 0;
+    }
+
+    .flow-node {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: #fff;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .flow-node.primary {
+      color: #fff;
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .flow-node.gate {
+      color: var(--navy);
+      background: var(--blue-3);
+      border-color: #9fc8e8;
+    }
+
+    .arrow {
+      position: relative;
+      height: 1px;
+      background: var(--blue);
+    }
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -4px;
+      border-left: 7px solid var(--blue);
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+
+    .agent-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 45px;
+    }
+
+    .agent-row::before {
+      content: "";
+      position: absolute;
+      left: 12.5%;
+      right: 12.5%;
+      top: -23px;
+      border-top: 1px solid var(--blue);
+    }
+
+    .agent {
+      position: relative;
+      min-height: 154px;
+      padding: 22px 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .agent::before {
+      content: "";
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      height: 23px;
+      border-left: 1px solid var(--blue);
+    }
+
+    .agent strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.1;
+    }
+
+    .agent span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .agent-index {
+      display: inline-flex;
+      width: 27px;
+      height: 27px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .story-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin: 12px 0 30px;
+    }
+
+    .story-step {
+      position: relative;
+      min-height: 132px;
+      padding: 21px 18px 18px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+      background: #fff;
+    }
+    .story-step:last-child { border-right: 1px solid var(--line); }
+    .story-step::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      right: -7px;
+      top: 57px;
+      width: 12px;
+      height: 12px;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      background: #fff;
+      transform: rotate(45deg);
+    }
+    .story-step:last-child::after { display: none; }
+    .story-step small {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .story-step strong {
+      display: block;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .editorial-card {
+      padding: 28px;
+      border-top: 5px solid var(--blue);
+      background: #f8fafc;
+    }
+
+    .editorial-card h3 {
+      margin-bottom: 13px;
+      color: var(--navy);
+      font-family: var(--serif);
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .editorial-card p,
+    .editorial-card li {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .editorial-card ul {
+      margin: 18px 0 0;
+      padding-left: 18px;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .repo-item {
+      min-height: 130px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .repo-path {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 4px 7px;
+      color: #fff;
+      background: var(--navy);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .repo-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .code-tabs {
+      margin-top: 16px;
+    }
+
+    .code-block {
+      position: relative;
+      margin: 15px 0;
+      padding: 25px 58px 25px 25px;
+      overflow-x: auto;
+      border-left: 5px solid var(--blue-2);
+      color: #dcecff;
+      background: #071a2d;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.17); }
+
+    .status-panel {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      border: 1px solid var(--line);
+    }
+
+    .status-main { padding: 34px; }
+    .status-side {
+      padding: 34px;
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .status-main h3,
+    .status-side h3 {
+      margin-bottom: 13px;
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .status-main p { color: var(--muted); }
+    .status-side p { color: #dcecff; }
+
+    .pill {
+      display: inline-block;
+      margin: 0 7px 8px 0;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      color: var(--navy);
+      background: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding: 42px 64px 56px;
+      color: #bdd6ec;
+      background: var(--navy);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr .6fr;
+      gap: 42px;
+    }
+
+    .footer h2 {
+      margin-bottom: 12px;
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 34px;
+      line-height: 1.05;
+    }
+
+    .footer p { max-width: 720px; }
+    .footer a { color: #fff; }
+    .footer-meta {
+      padding-left: 28px;
+      border-left: 1px solid rgba(255,255,255,.25);
+      font-size: 12px;
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 980px) {
+      .nav { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 62px 34px 48px; }
+      .hero-aside { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .metric-strip { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.22); }
+      .content { padding: 0 34px 64px; }
+      .section { grid-template-columns: 1fr; gap: 20px; padding: 52px 0; }
+      .section-label { position: static; }
+      .gate-grid, .repo-grid { grid-template-columns: 1fr; }
+      .gate-card { min-height: auto; }
+      .flow-top { grid-template-columns: 1fr; gap: 8px; }
+      .arrow { width: 1px; height: 27px; margin: 0 auto; }
+      .arrow::after { right: -4px; top: auto; bottom: -1px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 7px solid var(--blue); border-bottom: 0; }
+      .agent-row { grid-template-columns: repeat(2, 1fr); }
+      .agent-row::before, .agent::before { display: none; }
+      .story-flow { grid-template-columns: 1fr; }
+      .story-step { border-right: 1px solid var(--line); border-bottom: 0; }
+      .story-step:last-child { border-bottom: 1px solid var(--line); }
+      .story-step::after { display: none; }
+      .two-col, .status-panel, .footer-grid { grid-template-columns: 1fr; }
+      .footer-meta { padding-left: 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.25); padding-top: 24px; }
+    }
+
+    @media (max-width: 580px) {
+      .header-inner { padding: 13px 18px; }
+      .brand-desc { display: none; }
+      .hero { padding: 48px 22px 40px; }
+      h1 { font-size: 45px; }
+      .standfirst { font-size: 19px; }
+      .metric-strip { grid-template-columns: 1fr; }
+      .metric { min-height: 105px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.22); }
+      .content { padding: 0 22px 52px; }
+      .agent-row { grid-template-columns: 1fr; }
+      .architecture { padding: 18px; }
+      .lead-rule { font-size: 23px; }
+      .footer { padding: 40px 22px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .top-rule, .site-header, .copy-btn { display: none !important; }
+      .page { max-width: none; box-shadow: none; }
+      .hero { padding-top: 40px; }
+      .section-label { position: static; }
+      .section, .gate-card, .repo-item, .editorial-card, .architecture { break-inside: avoid; }
+      .print-only { display: block; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-rule"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">BTP@MA</span>
+        <span class="brand-desc">AI-driven development framework</span>
+      </div>
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#rule">Core rule</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#package">Package</a>
+        <a href="#start">Quick start</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <span class="kicker">Framework brief · Git-ready starter package</span>
+        <h1>AI development, with evidence before action.</h1>
+        <p class="standfirst">
+          A controlled framework for requirement analysis, BTP solution design, test-script creation, coding, review and verification—built around mandatory source intake, fixed specialist agents and human approval gates.
+        </p>
+      </div>
+      <aside class="hero-aside">
+        <span class="edition-label">Starter edition</span>
+        <h2>Methodology first. Automation second.</h2>
+        <p>
+          The package adapts the design-first discipline of Superpowers to an enterprise BTP@MA delivery lifecycle, while adding the controls that Jira, product documentation, source code and SAP delivery require.
+        </p>
+        <div class="byline">Independent extension package · Blue editorial edition</div>
+      </aside>
+    </section>
+
+    <section class="metric-strip" aria-label="Framework summary">
+      <div class="metric"><strong>4</strong><span>Fixed specialist agents</span></div>
+      <div class="metric"><strong>8</strong><span>Reusable workflow skills</span></div>
+      <div class="metric"><strong>3</strong><span>Mandatory intake gates</span></div>
+      <div class="metric"><strong>1</strong><span>Traceable delivery chain</span></div>
+    </section>
+
+    <div class="content">
+      <section class="section" id="rule">
+        <div class="section-label">
+          <span class="section-no">01</span>
+          <h2>The governing rule</h2>
+          <p>Downstream work begins only when the evidence needed to do it properly is present.</p>
+        </div>
+        <div class="section-body">
+          <p class="lead-rule">Do not analyse, test or code from assumptions when the product documentation, template or existing codebase can—and should—be supplied first.</p>
+
+          <div class="gate-grid">
+            <article class="gate-card">
+              <span class="gate-tag">Intake gate A</span>
+              <h3>Requirement analysis</h3>
+              <p>The Product Definition Agent first grounds the request in the actual product and process context.</p>
+              <ul class="check-list">
+                <li>Business requirement input</li>
+                <li>Product or process documentation</li>
+                <li>Related Jira stories or examples</li>
+                <li>Known scope, countries and products</li>
+              </ul>
+              <div class="waiver">Product documentation may be waived only with a documented Product Owner decision.</div>
+            </article>
+
+            <article class="gate-card">
+              <span class="gate-tag">Intake gate B</span>
+              <h3>Test-script creation</h3>
+              <p>The Quality Agent must understand both expected behaviour and the format used by the delivery organisation.</p>
+              <ul class="check-list">
+                <li>Approved requirement and acceptance criteria</li>
+                <li>Relevant product documentation</li>
+                <li>Target test-script template</li>
+                <li>Regression examples or reference tests</li>
+              </ul>
+              <div class="waiver">A default internal template is allowed only after a documented Quality Lead waiver.</div>
+            </article>
+
+            <article class="gate-card">
+              <span class="gate-tag">Intake gate C</span>
+              <h3>Coding</h3>
+              <p>The Development Agent works against the real repository, approved design and reproducible build environment.</p>
+              <ul class="check-list">
+                <li>Approved requirement</li>
+                <li>Approved solution design</li>
+                <li>Git repository, local path or code ZIP</li>
+                <li>Build and test commands</li>
+                <li>Coding standards and API documentation</li>
+              </ul>
+              <div class="waiver">Repository access, approved inputs, build command and test command cannot be waived.</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture">
+        <div class="section-label">
+          <span class="section-no">02</span>
+          <h2>Operating model</h2>
+          <p>One orchestrator routes work through an intake gate to four stable specialist roles.</p>
+        </div>
+        <div class="section-body">
+          <div class="architecture" role="img" aria-label="Architecture flow from user and Jira to orchestrator, intake gate, specialist agents and delivery artifacts">
+            <div class="flow-top">
+              <div class="flow-node">User · Jira · Product Owner</div>
+              <div class="arrow"></div>
+              <div class="flow-node primary">BTP@MA Orchestrator</div>
+              <div class="arrow"></div>
+              <div class="flow-node gate">Mandatory intake gate</div>
+            </div>
+
+            <div class="agent-row">
+              <article class="agent">
+                <span class="agent-index">1</span>
+                <strong>Product Definition Agent</strong>
+                <span>Requirement logic, acceptance criteria, scope and traceability.</span>
+              </article>
+              <article class="agent">
+                <span class="agent-index">2</span>
+                <strong>Solution Agent</strong>
+                <span>BTP architecture, integrations, APIs, data and security design.</span>
+              </article>
+              <article class="agent">
+                <span class="agent-index">3</span>
+                <strong>Development Agent</strong>
+                <span>Implementation plan, isolated coding, tests and pull request.</span>
+              </article>
+              <article class="agent">
+                <span class="agent-index">4</span>
+                <strong>Quality Agent</strong>
+                <span>Test design, independent review, regression and release evidence.</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="section-label">
+          <span class="section-no">03</span>
+          <h2>Delivery workflow</h2>
+          <p>The process is designed to reduce interpretation gaps and prevent unverified completion claims.</p>
+        </div>
+        <div class="section-body">
+          <div class="story-flow">
+            <div class="story-step"><small>Step 1</small><strong>Classify the requested workflow</strong></div>
+            <div class="story-step"><small>Step 2</small><strong>Collect and validate required inputs</strong></div>
+            <div class="story-step"><small>Step 3</small><strong>Route to the accountable specialist</strong></div>
+            <div class="story-step"><small>Step 4</small><strong>Review and approve the output</strong></div>
+            <div class="story-step"><small>Step 5</small><strong>Freshly verify before completion</strong></div>
+          </div>
+
+          <div class="two-col">
+            <article class="editorial-card">
+              <h3>What the framework enforces</h3>
+              <ul>
+                <li>Material already supplied is inspected before asking again.</li>
+                <li>Missing mandatory inputs block the workflow.</li>
+                <li>Deliverables carry requirement-to-test-to-code traceability.</li>
+                <li>Human approvals are explicit and policy-driven.</li>
+                <li>Coding uses an isolated branch or worktree where applicable.</li>
+                <li>An independent review precedes every completion claim.</li>
+              </ul>
+            </article>
+            <article class="editorial-card">
+              <h3>What the framework prevents</h3>
+              <ul>
+                <li>Inventing product logic from a short user prompt.</li>
+                <li>Generating test scripts in an unknown template.</li>
+                <li>Writing code without the real codebase.</li>
+                <li>Embedding access tokens in prompts or repositories.</li>
+                <li>Calling a result “done” without fresh evidence.</li>
+                <li>Allowing agents to operate outside approved tool boundaries.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="package">
+        <div class="section-label">
+          <span class="section-no">04</span>
+          <h2>Inside the repository</h2>
+          <p>The starter package separates agent behaviour, policy, executable controls and delivery templates.</p>
+        </div>
+        <div class="section-body">
+          <div class="repo-grid">
+            <article class="repo-item"><span class="repo-path">skills/</span><p>Eight reusable `SKILL.md` workflows for intake, analysis, design, testing, implementation, review and verification.</p></article>
+            <article class="repo-item"><span class="repo-path">agents/</span><p>Definitions for the orchestrator and the four fixed specialist agents.</p></article>
+            <article class="repo-item"><span class="repo-path">config/</span><p>Intake rules, approval gates, agent registry and default-deny tool policy.</p></article>
+            <article class="repo-item"><span class="repo-path">src/</span><p>Python reference implementation of the intake validator, router and connector interfaces.</p></article>
+            <article class="repo-item"><span class="repo-path">schemas/</span><p>Machine-readable schemas for request manifests and end-to-end traceability.</p></article>
+            <article class="repo-item"><span class="repo-path">templates/</span><p>Requirement, solution-design, implementation-plan, test-case and traceability templates.</p></article>
+            <article class="repo-item"><span class="repo-path">requests/</span><p>Ready-to-run examples for blocked and ready workflow scenarios.</p></article>
+            <article class="repo-item"><span class="repo-path">.github/</span><p>Continuous integration, pull-request controls and structured issue intake.</p></article>
+            <article class="repo-item"><span class="repo-path">docs/</span><p>Architecture, workflow, installation, security and extension guidance.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="start">
+        <div class="section-label">
+          <span class="section-no">05</span>
+          <h2>Quick start</h2>
+          <p>Install the CLI, validate the policies and run a blocked and ready intake example.</p>
+        </div>
+        <div class="section-body">
+          <h3 style="font-family: var(--serif); color: var(--navy); font-size: 26px; margin-bottom: 8px;">1. Install</h3>
+          <div class="code-block"><button class="copy-btn" type="button">Copy</button>python -m venv .venv
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+# macOS / Linux
+# source .venv/bin/activate
+
+python -m pip install --upgrade pip
+pip install -e ".[dev]"</div>
+
+          <h3 style="font-family: var(--serif); color: var(--navy); font-size: 26px; margin: 34px 0 8px;">2. Validate the framework</h3>
+          <div class="code-block"><button class="copy-btn" type="button">Copy</button>btp-ma validate-policy
+pytest
+ruff check .</div>
+
+          <h3 style="font-family: var(--serif); color: var(--navy); font-size: 26px; margin: 34px 0 8px;">3. See a blocked requirement request</h3>
+          <div class="code-block"><button class="copy-btn" type="button">Copy</button>btp-ma check \
+  --workflow requirement-analysis \
+  --request requests/examples/requirement-analysis-missing-docs.yaml</div>
+
+          <h3 style="font-family: var(--serif); color: var(--navy); font-size: 26px; margin: 34px 0 8px;">4. Route a ready coding request</h3>
+          <div class="code-block"><button class="copy-btn" type="button">Copy</button>btp-ma check \
+  --workflow coding \
+  --request requests/examples/coding-ready.yaml</div>
+
+          <h3 style="font-family: var(--serif); color: var(--navy); font-size: 26px; margin: 34px 0 8px;">5. Generate a new intake manifest</h3>
+          <div class="code-block"><button class="copy-btn" type="button">Copy</button>btp-ma template \
+  --workflow test-script-creation \
+  --output request.yaml</div>
+        </div>
+      </section>
+
+      <section class="section" id="status">
+        <div class="section-label">
+          <span class="section-no">06</span>
+          <h2>Current status</h2>
+          <p>The core policy and reference implementation are ready; live enterprise connectors remain controlled extension points.</p>
+        </div>
+        <div class="section-body">
+          <div class="status-panel">
+            <div class="status-main">
+              <h3>Available in this starter package</h3>
+              <p>Policy model, intake enforcement, agent definitions, skill workflows, templates, schemas, CI and a testable Python reference implementation.</p>
+              <div>
+                <span class="pill">Intake validation</span>
+                <span class="pill">Workflow routing</span>
+                <span class="pill">Human gates</span>
+                <span class="pill">Traceability</span>
+                <span class="pill">CI checks</span>
+                <span class="pill">Connector interfaces</span>
+              </div>
+            </div>
+            <div class="status-side">
+              <h3>Not enabled by default</h3>
+              <p>Live Jira writes, SharePoint or Docupedia retrieval, GitHub Enterprise changes, SAP BTP deployment, transport operations and model-provider calls.</p>
+              <p><strong>Reason:</strong> each requires your internal endpoints, identity model, field mappings, approval rules and compliance controls.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="security">
+        <div class="section-label">
+          <span class="section-no">07</span>
+          <h2>Connection principle</h2>
+          <p>Agents call controlled interfaces; secrets remain outside prompts, skills and committed files.</p>
+        </div>
+        <div class="section-body">
+          <p class="lead-rule">Implement real-system connectors behind an approved tool gateway. Resolve credentials at runtime through your enterprise secret or destination service.</p>
+          <div class="two-col">
+            <article class="editorial-card">
+              <h3>Connect next</h3>
+              <ul>
+                <li>Jira project and issue-type mappings</li>
+                <li>Product-documentation retrieval</li>
+                <li>GitHub Enterprise repository operations</li>
+                <li>SAP BTP deployment and log retrieval</li>
+                <li>Model routing, cost and data policies</li>
+              </ul>
+            </article>
+            <article class="editorial-card">
+              <h3>Never commit</h3>
+              <ul>
+                <li>Personal API tokens</li>
+                <li>Passwords or client secrets</li>
+                <li>Production credentials</li>
+                <li>Private keys</li>
+                <li>Confidential document content in skill files</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h2>BTP@MA AI-Driven Development Framework</h2>
+          <p>
+            An independent BTP@MA extension package inspired by the Superpowers methodology. It does not vendor the upstream project. See <a href="UPSTREAM.md">UPSTREAM.md</a>, <a href="NOTICE.md">NOTICE.md</a> and <a href="docs/ARCHITECTURE.md">the architecture guide</a> for details.
+          </p>
+        </div>
+        <div class="footer-meta">
+          <strong style="color:#fff;">Repository entry points</strong><br><br>
+          <a href="README.md">README.md</a><br>
+          <a href="docs/WORKFLOW.md">Workflow</a><br>
+          <a href="docs/SECURITY.md">Security</a><br>
+          <a href="VERIFICATION.md">Verification</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const block = button.parentElement;
+        const clone = block.cloneNode(true);
+        const cloneButton = clone.querySelector('.copy-btn');
+        if (cloneButton) cloneButton.remove();
+        const text = clone.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = button.textContent;
+          button.textContent = 'Copied';
+          setTimeout(() => { button.textContent = original; }, 1400);
+        } catch (error) {
+          button.textContent = 'Select';
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(block);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
